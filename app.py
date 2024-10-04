@@ -17,8 +17,9 @@ class Game(object):
     def _get_difficulty_level(self):
         for level in self._difficulty_levels:
             print(f"{level} - Attempts: {self._difficulty_levels[level]}")
+        print("")
         while True:
-            difficulty_level = input("Choose difficulty level (Easy, Medium, Hard): ")
+            difficulty_level = input(f"Choose difficulty level ({', '.join(self._difficulty_levels.keys())}): ")
             if difficulty_level in self._difficulty_levels:
                 self._max_attempts = self._difficulty_levels[difficulty_level]
                 print(f"Great! You have chosen the {difficulty_level} difficulty level.")
@@ -48,16 +49,16 @@ Good luck!
 """)
         self._number = random.randint(1, 100)
         self._difficulty_level = self._get_difficulty_level()
-        print("")
-        print("Let's start the game!")
-        print("")
+        print("""
+Let's start the game!
+""")
 
         while self._current_attempt < self._max_attempts:
             guessed_number = self._get_guessed_number()
             self._guessed_numbers.append(guessed_number)
             self._current_attempt += 1
             if guessed_number == self._number:
-                print(f"Congratulations! You guessed the correct number in {self._current_attempt} attempts.")
+                print(f"Congratulations! It was {self._number}! You guessed the correct number in {self._current_attempt} attempts.")
                 break
             else:
                 relative = "greater" if guessed_number < self._number else "less"
