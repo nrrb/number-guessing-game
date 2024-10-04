@@ -3,37 +3,37 @@ import random
 class Game(object):
 
     def __init__(self):
-        self._difficulty_levels = {
+        self.difficulty_levels = {
             "Easy": 10,
             "Medium": 5,
             "Hard": 3
         }
-        self._difficulty_level = None
-        self._number = None
-        self._guessed_numbers = []
-        self._current_attempt = 0
-        self._max_attempts = 0
+        self.difficulty_level = None
+        self.number = None
+        self.guessed_numbers = []
+        self.current_attempt = 0
+        self.max_attempts = 0
 
-    def _get_difficulty_level(self):
-        for level in self._difficulty_levels:
-            print(f"{level} - Attempts: {self._difficulty_levels[level]}")
+    def get_difficulty_level(self):
+        for level in self.difficulty_levels:
+            print(f"{level} - Attempts: {self.difficulty_levels[level]}")
         print("")
         while True:
-            difficulty_level = input(f"Choose difficulty level ({', '.join(self._difficulty_levels.keys())}): ")
-            if difficulty_level in self._difficulty_levels:
-                self._max_attempts = self._difficulty_levels[difficulty_level]
+            difficulty_level = input(f"Choose difficulty level ({', '.join(self.difficulty_levels.keys())}): ")
+            if difficulty_level in self.difficulty_levels:
+                self.max_attempts = self.difficulty_levels[difficulty_level]
                 print(f"Great! You have chosen the {difficulty_level} difficulty level.")
                 return difficulty_level
             else:
                 print("Invalid difficulty level. Please try again.")
 
-    def _get_guessed_number(self):
+    def get_guessed_number(self):
         while True:
             try:
-                guessed_number = int(input(f"Attempt {self._current_attempt + 1}/{self._max_attempts}. Enter your guess: "))
+                guessed_number = int(input(f"Attempt {self.current_attempt + 1}/{self.max_attempts}. Enter your guess: "))
                 if guessed_number < 1 or guessed_number > 100:
                     print("Invalid number. Please enter a number between 1 and 100.")
-                elif guessed_number in self._guessed_numbers:
+                elif guessed_number in self.guessed_numbers:
                     print("You have already guessed this number. Try again.")
                 else:
                     return guessed_number
@@ -48,23 +48,23 @@ You have a limited number of attempts to guess the number.
 Good luck!
 """)
         self._number = random.randint(1, 100)
-        self._difficulty_level = self._get_difficulty_level()
+        self.difficulty_level = self.get_difficulty_level()
         print("""
 Let's start the game!
 """)
 
-        while self._current_attempt < self._max_attempts:
-            guessed_number = self._get_guessed_number()
-            self._guessed_numbers.append(guessed_number)
-            self._current_attempt += 1
+        while self.current_attempt < self.max_attempts:
+            guessed_number = self.get_guessed_number()
+            self.guessed_numbers.append(guessed_number)
+            self.current_attempt += 1
             if guessed_number == self._number:
-                print(f"Congratulations! It was {self._number}! You guessed the correct number in {self._current_attempt} attempts.")
+                print(f"Congratulations! It was {self.number}! You guessed the correct number in {self._current_attempt} attempts.")
                 break
             else:
-                relative = "greater" if guessed_number < self._number else "less"
+                relative = "greater" if guessed_number < self.number else "less"
                 print(f"Incorrect! The number is {relative} than {guessed_number}.")
-        if guessed_number != self._number:
-            print(f"Game Over! The number was {self._number}.")
+        if guessed_number != self.number:
+            print(f"Game Over! The number was {self.number}.")
 
 if __name__=="__main__":
     g = Game()
