@@ -1,0 +1,7 @@
+modules = ["python-3.11", "nix"]
+run = "python3 main.py"
+entrypoint = "main.py"
+onstart = "echo Starting Replit environment for the Number Guessing Game!!"
+
+[nix]
+channel = "stable-24_05"
