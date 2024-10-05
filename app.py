@@ -9,7 +9,7 @@ class Game(object):
             "Hard": 3
         }
         self.difficulty_level = None
-        self.number = None
+        self.number = random.randint(1, 100)
         self.guessed_numbers = []
         self.current_attempt = 0
         self.max_attempts = 0
@@ -47,7 +47,6 @@ I'm thinking of a number between 1 and 100.
 You have a limited number of attempts to guess the number.
 Good luck!
 """)
-        self._number = random.randint(1, 100)
         self.difficulty_level = self.get_difficulty_level()
         print("""
 Let's start the game!
@@ -57,8 +56,8 @@ Let's start the game!
             guessed_number = self.get_guessed_number()
             self.guessed_numbers.append(guessed_number)
             self.current_attempt += 1
-            if guessed_number == self._number:
-                print(f"Congratulations! It was {self.number}! You guessed the correct number in {self._current_attempt} attempts.")
+            if guessed_number == self.number:
+                print(f"Congratulations! It was {self.number}! You guessed the correct number in {self.current_attempt} attempts.")
                 break
             else:
                 relative = "greater" if guessed_number < self.number else "less"
