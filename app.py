@@ -3,6 +3,23 @@ import random
 class Game(object):
 
     def __init__(self):
+        self.rounds = []
+
+    def play(self):
+        while True:
+            game_round = GameRound()
+            game_round.play()
+            self.rounds.append(game_round)
+            play_again = input("Do you want to play again? (Y/N): ")
+            if play_again.lower() != "y":
+                print("Thank you for playing!")
+                print(f"You won {len([r for r in self.rounds if r.won])} out of {len(self.rounds)} games.")
+                break
+
+
+class GameRound(object):
+
+    def __init__(self):
         self.difficulty_levels = {
             "Easy": 10,
             "Medium": 5,
@@ -13,6 +30,7 @@ class Game(object):
         self.guessed_numbers = []
         self.current_attempt = 0
         self.max_attempts = 0
+        self.won = False
 
     def get_difficulty_level(self):
         for level in self.difficulty_levels:
@@ -58,6 +76,7 @@ Let's start the game!
             self.current_attempt += 1
             if guessed_number == self.number:
                 print(f"Congratulations! It was {self.number}! You guessed the correct number in {self.current_attempt} attempts.")
+                self.won = True
                 break
             else:
                 relative = "greater" if guessed_number < self.number else "less"
